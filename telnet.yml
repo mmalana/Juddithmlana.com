@@ -1,0 +1,20 @@
+---
+- name: playbook to install telnet
+  become: yes
+  become_user: root
+  hosts: all
+
+
+  tasks:
+  - name: install telnet
+    yum:
+      name: telnet
+      state: present  
+  - name: start enable telnet
+    service:
+      name: telnet
+      state: started
+      enabled: yes  
+       
+ 
+
