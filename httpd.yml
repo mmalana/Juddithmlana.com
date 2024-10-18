@@ -1,0 +1,18 @@
+---
+- name: Playbook to install, start and enable httpd
+  hosts: inv1
+  become: true
+
+
+  tasks:
+  - name: Install httpd
+    dnf:
+      name: httpd
+      state: present
+
+  - name: start and enable httpd
+    service:
+      name: httpd
+      state: started
+      enabled: true      
+
