@@ -1,0 +1,70 @@
+---
+- name: playbook to manage class6 learning
+  hosts: [inv1]  
+  become: yes
+
+  tasks:
+
+  - name: create groups for all users
+    ansible.builtin.group:
+     name: "{{ item }}"
+     state: present
+    loop:
+      - class6
+      - africa
+      - sales
+      - finance 
+
+  - name: create user papa
+    user:
+     name: papa  
+     groups: class6,africa
+     shell: /bin/sh
+     home: /opt/papa
+     create_home: yes
+
+  - name: create user emma
+    user:
+     name: emma  
+     groups: class6,africa
+     shell: /bin/sh
+     home: /opt/emma
+     create_home: yes
+
+  - name: create user issa
+    user:
+     name: issa 
+     groups: finance,sales
+     shell: /bin/bash
+     home: /tmp/issa
+     create_home: yes
+  
+  - name: create /tmp/linux directoty
+    file: 
+     state: directory
+     path: /tmp/linux
+     mode: 777
+     owner: issa
+     group: finance
+       
+
+  - name: create /opt/unix drectory
+    file:
+      state: directory
+      path: /tmp/unix
+      mode: 674
+      owner: papa
+      group: sales
+      
+
+  - name: create /var/ansible
+    file:
+     state: directory
+     path: /var/ansible 
+     mode: 1775
+     owner: emma
+     group: sales
+     
+
+
+
